@@ -3,10 +3,12 @@ from email import message
 from http import server
 from logging import shutdown
 from discord.ext import commands
-
+import discord
 bot = commands.Bot(command_prefix="s!")
 shutdown = False
-
+@bot.event
+async def on_ready():
+    await bot.change_presence(activity=discord.Streaming(name="Messages", url="https://google.com/"))
 
 @bot.event
 async def on_message(message):
