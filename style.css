@@ -1,0 +1,81 @@
+body {
+    padding: 0;
+    width: auto;
+}
+
+div{
+    box-sizing: border-box;
+    width: auto;
+    padding: 20px;
+}
+html{
+    height: 100%;
+}
+
+section.new-section {
+    height: 100%;
+    text-align: center;
+    background-image: #651fff;
+    background: #eee;
+    border-color: #651fff;
+  }
+
+h1.h1tags{
+    text-align: center;
+    color: rgb(255, 118, 108);
+    border-radius: 10px;
+    height: 100%;
+    width: 100%;
+}
+div.topbar{
+    background-color: #651fff;
+}
+.topbar {
+    background-color:#651fff;
+    overflow: auto;
+   
+    color: white;
+    align-items: center;
+    text-align: center;
+    font-family: 'Trebuchet MS';
+    border-radius: 10px;
+   
+  }
+
+.bio{
+    text-align: center;
+    font-size: large;
+    color: white;
+    background-color: #651fff;
+    border-radius: 10px;
+    overflow: hidden;
+    font-weight: bold;
+    font-family: 'Trebuchet MS';
+}
+
+.about {
+    text-align: left;
+    font-family: 'Trebuchet MS';
+}
+.aboutmebio{
+    text-align: center;
+    font-size: large;
+    color: white;
+    background-color: #651fff;
+    border-radius: 10px;
+    overflow: hidden;
+    font-weight: bold;
+    font-family: 'Trebuchet MS';
+}
+.aboutme{
+    font-weight: bold;
+    font-family: 'Trebuchet MS';
+    overflow: hidden;
+    font-size: large;
+}
+
+.framebody{
+    background-color: antiquewhite;
+    padding: 20px 30px;
+    overflow: hidden;
+}
