@@ -3,12 +3,10 @@ from discord.ext import commands
 import discord
 import datetime
 import os
-from dotenv import load_dotenv
+from boto.s3.connection import S3Connection
 
-load_dotenv()
-token = os.getenv("Token")
-channelid = os.getenv("channel_id")
-
+token = S3Connection(os.environ["TOKEN"])
+channelid = S3Connection(os.environ["channelid"])
 
 bot = commands.Bot(command_prefix="s!")
 print(token, channelid)
