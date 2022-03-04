@@ -3,10 +3,11 @@ from discord.ext import commands
 import discord
 import datetime
 import os
+
 token: str = os.getenv("Token")
 channelid: int = os.getenv("channel_id")
 bot = commands.Bot(command_prefix="s!")
-
+print(token, channelid)
 @bot.event
 async def on_ready():
     await bot.change_presence(activity=discord.Streaming(name="Messages", url="https://google.com/"))
