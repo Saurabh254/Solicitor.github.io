@@ -1,11 +1,10 @@
 
 from discord.ext import commands
 import discord
-from decouple import config
 import datetime
-
-token = config("Token")
-channelid = int(config("channel_id"))
+import os
+token = os.getenv("Token")
+channelid = int(os.getenv("channel_id"))
 bot = commands.Bot(command_prefix="s!")
 
 @bot.event
