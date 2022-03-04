@@ -3,8 +3,8 @@ from discord.ext import commands
 import discord
 import datetime
 import os
-token = os.getenv("Token")
-channelid = int(os.getenv("channel_id"))
+token: str = os.getenv("Token")
+channelid: int = os.getenv("channel_id")
 bot = commands.Bot(command_prefix="s!")
 
 @bot.event
