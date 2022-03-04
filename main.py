@@ -3,10 +3,10 @@ from discord.ext import commands
 import discord
 import datetime
 import os
-from boto.s3.connection import S3Connection
+from decouple import config
 
-token = S3Connection(os.environ["TOKEN"])
-channelid = S3Connection(os.environ["channelid"])
+token = config("TOKEN")
+channelid = config("channelid")
 
 bot = commands.Bot(command_prefix="s!")
 print(token, channelid)
