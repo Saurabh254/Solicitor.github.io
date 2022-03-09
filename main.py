@@ -3,21 +3,17 @@ from discord.ext import commands
 import discord
 from datetime import datetime
 
-import pytz
 
 token = "put token here"
 channel__id = "int: put channel id"
 
 bot = commands.Bot(command_prefix="s!")
 
-IST = pytz.timezone('Asia/Kolkata')
-IndianTime = datetime.now(IST)
-
 
 @bot.event
 async def on_ready():
     await bot.change_presence(activity=discord.Streaming(name="Messages", url="https://google.com/"))
-
+    print("bot is ready!!!")
 
 @bot.event
 async def on_message(message):
@@ -35,8 +31,13 @@ async def on_message(message):
                 inline=False)
 
             embed.add_field(
-                name="Author",
+                name="Author Username",
                 value=f"```cpp\n{message.author}\n```",
+                inline=True)
+
+            embed.add_field(
+                name="Author Nickname",
+                value=f"```cpp\n{message.author.display_name}\n```",
                 inline=True)
 
             embed.add_field(
@@ -60,9 +61,10 @@ async def on_message(message):
                 inline=False)
 
             embed.set_thumbnail(
-                url="https://cdn.discordapp.com/avatars/932174184942026802/5b33de427fa67237c3dc0dd58c4dcd3d.png?size=4096")
-
-            embed.set_footer(text=str(IndianTime.strftime('%d-%m-%Y %I:%M %p')),
+                url=str(message.guild.icon_url))
+            embed.timestamp = datetime.utcnow()
+            
+            embed.set_footer(
                              icon_url="https://cdn.discordapp.com/attachments/941355481589485630/949221082076938310/pinpng.com-timer-png-723861.png")
 
             await channel.send(embed=embed)
