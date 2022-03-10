@@ -4,8 +4,8 @@ import discord
 from datetime import datetime
 import re
 
-token = "add your token"
-channel__id = "put channel id"
+token = "You already know what you have to add"
+channel__id = "enter channelid"
 
 bot = commands.Bot(command_prefix="s!")
 
@@ -18,7 +18,7 @@ async def on_ready():
 @bot.event
 async def on_message(message):
     if not message.author.bot:
-        msg = re.sub(' |_|-|@|#|$|^|&|:saurabh:|:sau:|)|(|*|!|%|~|`|```','',message.content.lower())
+        msg = re.sub('```| |\`|\~|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\_|\+|\||\-|\=|\|\[|\]|\:|\;|\"|\'|\<|\>|\?|\,|\.|\{|\}|\d+','',message.content.lower())
         
         if "saurabh" in msg or "sau" in msg or "rabh" in msg: 
             channel = bot.get_channel(channel__id)
