@@ -2,10 +2,10 @@
 from discord.ext import commands
 import discord
 from datetime import datetime
+import re
 
-
-token = "put token here"
-channel__id = "int: put channel id"
+token = "add token"
+channel__id = "enter id"
 
 bot = commands.Bot(command_prefix="s!")
 
@@ -18,9 +18,10 @@ async def on_ready():
 @bot.event
 async def on_message(message):
     if not message.author.bot:
-        if "saurabh" in (message.content.lower()).replace(":saurabh:", ""):
+        msg = re.sub(' |_|-|@|#|$|^|&|:saurabh:|:sau:','',message.content.lower())
+        
+        if "saurabh" in msg or "sau" in msg or "rabh" in msg: 
             channel = bot.get_channel(channel__id)
-
             embed = discord.Embed(
                 title=f"Solicitor Headquarters!!!",
                 color=16718362)
@@ -64,7 +65,7 @@ async def on_message(message):
                 url=str(message.guild.icon_url))
             embed.timestamp = datetime.utcnow()
             
-            embed.set_footer(
+            embed.set_footer(text=f"Channel id : {message.channel.id}, Guild id: {message.guild.id}",
                              icon_url="https://cdn.discordapp.com/attachments/941355481589485630/949221082076938310/pinpng.com-timer-png-723861.png")
 
             await channel.send(embed=embed)
