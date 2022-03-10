@@ -19,7 +19,7 @@ async def on_ready():
 async def on_message(message):
     if not message.author.bot:
         msg = re.sub(
-            '```| |\`|\~|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\_|\+|\||\-|\=|\|\[|\]|\:|\;|\"|\'|\<|\>|\?|\,|\.|\{|\}|:saurabh:|:sau:|:saur:|\d+', '', message.content.lower())
+            '```| |:saurabh:|:sau:|:saur:|\`|\~|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\_|\+|\||\-|\=|\|\[|\]|\:|\;|\"|\'|\<|\>|\?|\,|\.|\{|\}|\d+', '', message.content.lower())
 
         if "saurabh" in msg or "sau" in msg or "sarabh" in msg or 'surabh' in msg:
             ref_message = None
