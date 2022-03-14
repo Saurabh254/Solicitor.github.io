@@ -4,10 +4,13 @@ import discord
 from datetime import datetime
 import re
 
-token = "put ur token"
-channel__id = "put channel id"
+token: str = "put token"
+channel__id: int = 'channel id '
 
-bot = commands.Bot(command_prefix="s!")
+bot = commands.Bot(command_prefix=["Plz ", 'plz '])
+
+message_deleted = []
+
 
 @bot.event
 async def on_ready():
@@ -98,6 +101,47 @@ async def on_message(message):
                              icon_url="https://cdn.discordapp.com/attachments/941355481589485630/949221082076938310/pinpng.com-timer-png-723861.png")
 
             await reporting.send(embed=embed)
+    await bot.process_commands(message)
 
+
+@bot.event
+async def on_message_delete(message):
+    global message_deleted
+    message_deleted = [(message, datetime.utcnow())] + message_deleted
+    message_deleted.pop() if len(message_deleted) >= 6 else message_deleted
+
+
+@bot.command(name='snipe')
+async def snipe(ctx, number: int = 1):
+    if not 0 <= number < 6:
+        await ctx.reply("Messages can be snipped in range 1, 6")
+    else:
+
+        # To get global list
+        global message_deleted
+        if len(message_deleted) >= number:
+            # slicing to get the indexed message
+            message, timestp = message_deleted[number-1]
+
+            # Embeds  title
+            embed = discord.Embed(
+                color=16718362)
+            messageCont = re.sub("\`", "", message.content)
+            # Embed Message
+            embed.add_field(name='Snipe Message: ',
+                            value=f'```\n { messageCont}\n```',
+                            inline=False)
+
+            # Embed footer to display about author
+            embed.set_footer(
+                text=f"Message sent by {message.author} ({message.author.name})",
+                icon_url=str(message.guild.icon_url))
+
+            # Embed timestamp to get the time stamp of the deleted message
+            embed.timestamp = timestp
+            await ctx.send(embed=embed)
+
+        else:
+            await ctx.reply("Message haven't been logged")
 
 bot.run(token)
