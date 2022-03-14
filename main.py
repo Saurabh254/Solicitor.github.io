@@ -137,6 +137,7 @@ async def snipe(ctx, number: int = 1):
             # Embed Message
             embed.add_field(name='Snipe Message: ',
                             value=f'```\n { messageCont}\n```',
+                            
                             inline=False)
             embed.set_author(
                 name=f"{message.author} ({message.author.name})", icon_url=message.author.avatar_url)
