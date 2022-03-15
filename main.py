@@ -7,8 +7,8 @@ import re
 from matplotlib.pyplot import title
 
 
-token = "put your token"
-channel__id = 'channel id'
+token = "OTQ5NTg4NTcxMDE3MzE0Mzg0.YiMjRQ.hFdqxdTFu19Jkx24Ueux0-joUIQ"
+channel__id = 941355481589485630
 
 
 bot = commands.Bot(command_prefix=["Plz ", 'plz '])
@@ -28,7 +28,7 @@ async def on_ready():
 async def on_message(message):
     if not message.author.bot:
         msg = re.sub(
-            '```| |:saurabh:|:sau:|:saur:|\`|\~|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\_|\+|\||\-|\=|\|\[|\]|\:|\;|\"|\'|\<|\>|\?|\,|\.|\{|\}|\d+', '', message.content.lower())
+            '```| |:saurabh1:|:sau:|:saur:|\`|\~|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\_|\+|\||\-|\=|\|\[|\]|\:|\;|\"|\'|\<|\>|\?|\,|\.|\{|\}|\d+', '', message.content.lower())
 
         if "saurabh" in msg or "sau" in msg or "sarabh" in msg or 'surabh' in msg:
             ref_message = None
@@ -138,7 +138,7 @@ async def snipe(ctx, number: int = 1):
             messageCont = re.sub("\`", "", message.content)
             # Embed Message
             embed.add_field(name='Snipe Message: ',
-                            value= f'```\n { messageCont if len(messageCont) != 0 else "Invalid format"}\n```' if attachment is None else f'{messageCont}\u200b',
+                            value=f'```\n { messageCont if len(messageCont) != 0 else "Invalid format"}\n```' if attachment is None else f'{messageCont}\u200b',
                             inline=False)
             embed.set_author(
                 name=f"{message.author} ({message.author.name})", icon_url=message.author.avatar_url)
@@ -157,19 +157,46 @@ async def snipe(ctx, number: int = 1):
 
 
 @bot.command(name='help')
-async def help(ctx):
-    embed = discord.Embed(title=f'Solicitor Help Panel',
-                          color=16718362)
-    embed.add_field(name='Commands',
-                    value='Name: **snipe** \n\n**Usage:** \n```Plz snipe [index]\n```\n\n**Index** should be in range(1,10)\n\n **Examples:** \n```\nPlz snipe 4 \nPlz snipe\n```\n\n **Use Prefix\'s:**  **Plz** or **plz**',
-                    inline=False)
+async def help(ctx, input=None):
+
+    if input is None:
+        embed = discord.Embed(title=f'Commands',
+                              color=16718362)
+        embed.add_field(name='1. snipe',
+                        value="```\nSnipe command help user to snipe the deleted message(including files and images) within the range of 1, 6\n```",
+                        inline=False)
+
+        embed.add_field(name='2. esnipe',
+                        value="```\nesnipe command help user to Edit snipe the Edited message within the range of 1, 6\n```",
+                        inline=False)
+        embed.set_footer(text=f'Type plz help (command) for more info on a command.',
+                        icon_url="https://cdn.discordapp.com/attachments/941355481589485630/949221082076938310/pinpng.com-timer-png-723861.png")
+    elif input.strip().lower() in ['snipe', 'Snipe']:
+
+        embed = discord.Embed(title=f'Snipe Command',
+                              color=16718362)
+
+        embed.set_footer(text=f'Type plz help to view all commands.',
+                        icon_url="https://cdn.discordapp.com/attachments/941355481589485630/949221082076938310/pinpng.com-timer-png-723861.png")
+        embed.add_field(name="Usage:",
+                        value="```\nPlz snipe [index]\nplz snipe\n```\nExample:\n```\nPlz snipe 2\nplz snipe\n```")
+    elif input.strip().lower() in ['esnipe', 'esnipe']:
+
+        embed = discord.Embed(title=f'Edit Snipe Command',
+                              color=16718362)
+
+        embed.set_footer(text=f'Type plz help to view all commands.',
+                        icon_url="https://cdn.discordapp.com/attachments/941355481589485630/949221082076938310/pinpng.com-timer-png-723861.png")
+        embed.add_field(name="Usage:",
+                        value="```\nPlz esnipe [index]\nplz esnipe\n```\nExample:\n```\nPlz esnipe 2\nplz esnipe\n```")
+    
+
+    embed.set_author(name=f"Solicitor Help Panel",
+                     icon_url="https://cdn.discordapp.com/avatars/932174184942026802/5b33de427fa67237c3dc0dd58c4dcd3d.png?size=4096")
+
+    embed.timestamp = datetime.utcnow()
     embed.set_thumbnail(
         url=str(ctx.guild.icon_url))
-    embed.timestamp = datetime.utcnow()
-
-    embed.set_footer(text=f'Hii! {ctx.author.name}',
-                     icon_url="https://cdn.discordapp.com/attachments/941355481589485630/949221082076938310/pinpng.com-timer-png-723861.png")
-
     await ctx.reply(embed=embed)
 
 
