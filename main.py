@@ -1,13 +1,14 @@
 
-from discord.ext import commands
+from discord.ext import commands, tasks
 import discord
 from datetime import datetime
 import re
 
+from matplotlib.pyplot import title
 
 
-token = "put token"
-channel__id = 'channelid'
+token = "put your token"
+channel__id = 'channel id'
 
 
 bot = commands.Bot(command_prefix=["Plz ", 'plz '])
@@ -19,6 +20,7 @@ bot.remove_command('help')
 @bot.event
 async def on_ready():
     await bot.change_presence(activity=discord.Streaming(name="Messages", url="https://google.com/"))
+    cleanup.start()
     print("bot is ready!!!")
 
 
@@ -113,7 +115,7 @@ async def on_message_delete(message):
     if message.guild.id not in message_deleted:
         message_deleted[message.guild.id] = []
     message_deleted_list = message_deleted[message.guild.id]
-    message_deleted_list = [(message, datetime.utcnow())
+    message_deleted_list = [(message, datetime.utcnow(),  message.attachments[0].url if message.attachments != [] else None)
                             ] + message_deleted_list
     message_deleted_list.pop() if len(message_deleted) >= 6 else message_deleted_list
     message_deleted[message.guild.id] = message_deleted_list
@@ -123,12 +125,12 @@ async def on_message_delete(message):
 async def snipe(ctx, number: int = 1):
     if ctx.guild.id not in message_deleted:
         message_deleted[ctx.guild.id] = []
-    if not 0 <= number < 10:
-        await ctx.reply("Messages can be snipped in range 1, 10")
+    if not 0 <= number < 6:
+        await ctx.reply("Messages can be snipped in range 1, 6")
     else:
         if len(message_deleted[ctx.guild.id]) >= number:
             # slicing to get the indexed message
-            message, timestp = message_deleted[ctx.guild.id][number-1]
+            message, timestp, attachment = message_deleted[ctx.guild.id][number-1]
 
             # Embeds  title
             embed = discord.Embed(
@@ -136,8 +138,7 @@ async def snipe(ctx, number: int = 1):
             messageCont = re.sub("\`", "", message.content)
             # Embed Message
             embed.add_field(name='Snipe Message: ',
-                            value=f'```\n { messageCont}\n```',
-                            
+                            value= f'```\n { messageCont if len(messageCont) != 0 else "Invalid format"}\n```' if attachment is None else f'{messageCont}\u200b',
                             inline=False)
             embed.set_author(
                 name=f"{message.author} ({message.author.name})", icon_url=message.author.avatar_url)
@@ -145,7 +146,8 @@ async def snipe(ctx, number: int = 1):
             embed.set_footer(
                 text=f"Deleted in #{message.channel.name}",
                 icon_url=str(message.guild.icon_url))
-
+            if attachment is not None:
+                embed.set_image(url=attachment)
             # Embed timestamp to get the time stamp of the deleted message
             embed.timestamp = timestp
             await ctx.send(embed=embed)
@@ -169,6 +171,66 @@ async def help(ctx):
                      icon_url="https://cdn.discordapp.com/attachments/941355481589485630/949221082076938310/pinpng.com-timer-png-723861.png")
 
     await ctx.reply(embed=embed)
+
+
+message_edited = {}
+
+
+@bot.event
+async def on_message_edit(message_before, message_after):
+    if message_before.guild.id not in message_edited:
+        message_edited[message_before.guild.id] = []
+    message_edited_list = message_edited[message_before.guild.id]
+    message_edited_list = [
+        (message_before, message_after, datetime.utcnow())] + message_edited_list
+    message_edited_list.pop() if len(message_edited_list) >= 6 else message_edited_list
+    message_edited[message_before.guild.id] = message_edited_list
+
+
+@bot.command(name='esnipe')
+async def esnipe(ctx, index: int = 1, *_):
+    if not 0 < index < 6:
+        await ctx.reply("Message can be esniped in range of (1,6)")
+    else:
+        if ctx.guild.id not in message_edited:
+            message_edited[ctx.guild.id] = []
+        if len(message_edited[ctx.guild.id]) >= index:
+            message_before, message_after, timestp = message_edited[ctx.guild.id][index-1]
+
+            embed = discord.Embed(color=16718362)
+
+            embed.add_field(name="Original Message:",
+                            value=f'```\n{message_before.content}\n```',
+                            inline=False)
+
+            embed.add_field(name="Edited Message:",
+                            value=f'```\n{message_after.content}\n```',
+                            inline=False)
+
+            embed.timestamp = timestp
+
+            embed.set_footer(
+                text=f"Edited in #{message_before.channel.name}",
+                icon_url=str(ctx.guild.icon_url))
+            embed.set_author(
+                name=f"{message_before.author} ({message_before.author.name})", icon_url=message_before.author.avatar_url)
+            await ctx.reply(embed=embed)
+        else:
+            await ctx.reply("Messages haven't been logged till there")
+
+
+# tasks to clean up dicts
+@tasks.loop(seconds=20)
+async def cleanup():
+    print("Cleanup Initiated")
+    for i in message_edited:
+        edit_list = message_edited[i]
+        edit_list.pop() if len(edit_list) > 1 else edit_list
+        message_edited[i] = edit_list
+    for i in message_deleted:
+        delete_list = message_deleted[i]
+        delete_list.pop() if len(delete_list) > 1 else delete_list
+        message_edited[i] = delete_list
 
 
 bot.run(token)
