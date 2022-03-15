@@ -4,12 +4,9 @@ import discord
 from datetime import datetime
 import re
 
-from matplotlib.pyplot import title
 
-
-token = "OTQ5NTg4NTcxMDE3MzE0Mzg0.YiMjRQ.hFdqxdTFu19Jkx24Ueux0-joUIQ"
-channel__id = 941355481589485630
-
+channel__id = 'channel id'
+token = 'ur token'
 
 bot = commands.Bot(command_prefix=["Plz ", 'plz '])
 
