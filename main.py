@@ -5,10 +5,8 @@ from datetime import datetime
 import re
 
 
-token = "OTQ5NTg4NTcxMDE3MzE0Mzg0.YiMjRQ.98nIT42oTh-m5_fFUbACag9eo6I"
-channel__id = 941355481589485630
-
-
+channel__id = 'channel id'
+token = 'ur token'
 
 bot = commands.Bot(command_prefix=["Plz ", 'plz '])
 
