@@ -5,6 +5,7 @@ body {
   margin: 0%;
   background: url("src/background.jpg") no-repeat center fixed;
   object-fit: cover;
+  background: fixed;
 }
 
 td {
