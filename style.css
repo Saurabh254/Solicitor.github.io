@@ -5,9 +5,11 @@ body {
   margin: 0%;
   background: url("src/background.jpg") no-repeat center fixed;
   object-fit: cover;
-  background: fixed;
+  /* background: fixed; */
 }
-
+html{
+  scroll-behavior: smooth;
+}
 td {
   width: 80px;
   text-align: center;
