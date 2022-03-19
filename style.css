@@ -1,81 +1,77 @@
 body {
-    padding: 0;
-    width: auto;
+  height: auto;
+  width: auto;
+  object-fit: cover;
+  margin: 0%;
+  background: url("src/background.jpg") no-repeat center fixed;
+  object-fit: cover;
 }
 
-div{
-    box-sizing: border-box;
-    width: auto;
-    padding: 20px;
-}
-html{
-    height: 100%;
+td {
+  width: 80px;
+  text-align: center;
+  height: 37px;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+  font-weight: 600;
 }
 
-section.new-section {
-    height: 100%;
-    text-align: center;
-    background-image: #651fff;
-    background: #eee;
-    border-color: #651fff;
-  }
+.top-nav {
+  background: rgba(223, 222, 255, 0.85);
+}
 
-h1.h1tags{
-    text-align: center;
-    color: rgb(255, 118, 108);
-    border-radius: 10px;
-    height: 100%;
-    width: 100%;
+.nav-menu {
+  text-decoration: inherit;
 }
-div.topbar{
-    background-color: #651fff;
+
+.nav-menu:hover {
+  color: rgba(96, 91, 255, 0.85);
+  animation: forwards;
 }
-.topbar {
-    background-color:#651fff;
-    overflow: auto;
+
+a {
+  text-decoration: inherit;
+}
+.mainpage {
+    display: flex;
    
-    color: white;
+    justify-content: center;
+}
+
+.about-text , h2, h4 {
+    margin: 0%;
+    height: 90px;
+    width: 90%;
+    text-align: center;
+    display: flex;
+    background-color: rgba(223, 222, 255, 0.4);
+    justify-content: center;
     align-items: center;
-    text-align: center;
-    font-family: 'Trebuchet MS';
     border-radius: 10px;
-   
-  }
-
-.bio{
-    text-align: center;
-    font-size: large;
-    color: white;
-    background-color: #651fff;
-    border-radius: 10px;
-    overflow: hidden;
-    font-weight: bold;
-    font-family: 'Trebuchet MS';
+    padding: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+    text-shadow: 10px;
 }
 
-.about {
-    text-align: left;
-    font-family: 'Trebuchet MS';
-}
-.aboutmebio{
-    text-align: center;
-    font-size: large;
-    color: white;
-    background-color: #651fff;
-    border-radius: 10px;
-    overflow: hidden;
-    font-weight: bold;
-    font-family: 'Trebuchet MS';
-}
-.aboutme{
-    font-weight: bold;
-    font-family: 'Trebuchet MS';
-    overflow: hidden;
-    font-size: large;
+
+.about{
+     display: flex;
+    font-family: Arial, Helvetica, sans-serif;
+    justify-content: center;
 }
 
-.framebody{
-    background-color: antiquewhite;
-    padding: 20px 30px;
-    overflow: hidden;
+
+.div-head{
+  display: flex;
+  justify-content: center;
+}
+
+.icons{
+  height: 7vh;
+  padding: 0%;
+  margin: 0%;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  border-radius: 30px;
 }
